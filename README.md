@@ -1,6 +1,6 @@
-### AutomaticStreetLight
+## AutomaticStreetLight
 
-#### Project Overview
+### Project Overview
 The objective of this project is to design an automated Street Lightening system. Our focus is to implement this innovative solution using a RISC-V processor, a departure from traditional Arduino boards. The primary motivation for this endeavor is to enhance efficiency by  minimising the usage of the energy in the street light systems.   
 The components used in this project are: LDR sensor, PIR sensor, RISC-V Processor, Relay module, LED.  
 
