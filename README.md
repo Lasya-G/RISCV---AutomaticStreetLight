@@ -186,18 +186,18 @@ $ python3 instruction_counter.py // use this command after ensuring we are in th
 ```
 Number of unique instructions = 14  
 List of unique instructions:
-mv
-sll
-lw
-beqz
-auipc
-or
-jalr
-add
-nop
-li
-and
-sw
-j
-ret
+mv  
+sll  
+lw  
+beqz  
+auipc  
+or  
+jalr  
+add  
+nop  
+li  
+and  
+sw  
+j  
+ret  
 
