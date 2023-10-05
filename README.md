@@ -76,4 +76,23 @@ int main() {
 
 
 
-### Assembly code
+Use below code to convert c code to assembly language:
+```
+/home/lasya/riscv32-toolchain/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -ffreestanding -o automaticstreetlight.o automaticstreetlight.c
+/home/lasya/riscv32-toolchain/bin/riscv32-unknown-elf-objdump -d automaticstreetlight.o > automaticstreetlight.txt
+```
+
+### Assembly code  
+
+```
+
+```
+
+
+### Unique Instructions
+To find the number of unique instructions make sure to rename the filename as sample_assembly.txt since the python script that we are using is opening the file name with sample_assembly.txt and both files should be in the same directory. The python script I am using is already uploaded. Now follow the command to get the number of different instructions used.
+```
+$ python3 instruction_counter.py // use this command after ensuring we are in the same directory as the script
+```
+
+
