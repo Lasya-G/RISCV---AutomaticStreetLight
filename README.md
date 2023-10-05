@@ -10,7 +10,7 @@ The components used in this project are: LDR sensor, PIR sensor, RISC-V Processo
 
 ### Block Diagram
 
-<img width="600" alt="">
+<img width="600" alt="image0" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/503047b1-52e1-462f-a545-33e1f01be7e7">
 
 ### Flow Chart
 
