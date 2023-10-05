@@ -1,4 +1,4 @@
-![Screenshot from 2023-10-05 09-32-06](https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/8e466730-2be4-4e99-ab77-13d292882376)## AutomaticStreetLight
+## AutomaticStreetLight
 
 ### Project Overview
 The objective of this project is to design an automated Street Lightening system. Our focus is to implement this innovative solution using a RISC-V processor, a departure from traditional Arduino boards. The primary motivation for this endeavor is to enhance efficiency by  minimising the usage of the energy in the street light systems.   
