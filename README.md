@@ -85,6 +85,96 @@ Use below code to convert c code to assembly language:
 ### Assembly code  
 
 ```
+automaticstreetlight.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <read_pir_sensor>:
+   0:	fe010113          	add	sp,sp,-32
+   4:	00812e23          	sw	s0,28(sp)
+   8:	02010413          	add	s0,sp,32
+   c:	001f6793          	or	a5,t5,1
+  10:	fef42623          	sw	a5,-20(s0)
+  14:	00000013          	nop
+  18:	00078513          	mv	a0,a5
+  1c:	01c12403          	lw	s0,28(sp)
+  20:	02010113          	add	sp,sp,32
+  24:	00008067          	ret
+
+00000028 <read_ldr_sensor>:
+  28:	fe010113          	add	sp,sp,-32
+  2c:	00812e23          	sw	s0,28(sp)
+  30:	02010413          	add	s0,sp,32
+  34:	001f6793          	or	a5,t5,1
+  38:	fef42623          	sw	a5,-20(s0)
+  3c:	00000013          	nop
+  40:	00078513          	mv	a0,a5
+  44:	01c12403          	lw	s0,28(sp)
+  48:	02010113          	add	sp,sp,32
+  4c:	00008067          	ret
+
+00000050 <controller>:
+  50:	fe010113          	add	sp,sp,-32
+  54:	00812e23          	sw	s0,28(sp)
+  58:	02010413          	add	s0,sp,32
+  5c:	fec42783          	lw	a5,-20(s0)
+  60:	02078c63          	beqz	a5,98 <.L4>
+  64:	fe842783          	lw	a5,-24(s0)
+  68:	02078863          	beqz	a5,98 <.L4>
+  6c:	fe442783          	lw	a5,-28(s0)
+  70:	00100713          	li	a4,1
+  74:	00e7a023          	sw	a4,0(a5)
+  78:	fe442783          	lw	a5,-28(s0)
+  7c:	0007a783          	lw	a5,0(a5)
+  80:	00579713          	sll	a4,a5,0x5
+  84:	fe042783          	lw	a5,-32(s0)
+  88:	00e7a023          	sw	a4,0(a5)
+  8c:	00ff7f33          	and	t5,t5,a5
+  90:	fef42023          	sw	a5,-32(s0)
+  94:	02c0006f          	j	c0 <.L5>
+
+00000098 <.L4>:
+  98:	fe442783          	lw	a5,-28(s0)
+  9c:	0007a023          	sw	zero,0(a5)
+  a0:	fe442783          	lw	a5,-28(s0)
+  a4:	0007a783          	lw	a5,0(a5)
+  a8:	00579713          	sll	a4,a5,0x5
+  ac:	fe042783          	lw	a5,-32(s0)
+  b0:	00e7a023          	sw	a4,0(a5)
+  b4:	00ff7f33          	and	t5,t5,a5
+  b8:	fef42023          	sw	a5,-32(s0)
+  bc:	00000013          	nop
+
+000000c0 <.L5>:
+  c0:	00000013          	nop
+  c4:	01c12403          	lw	s0,28(sp)
+  c8:	02010113          	add	sp,sp,32
+  cc:	00008067          	ret
+
+000000d0 <read>:
+  d0:	ff010113          	add	sp,sp,-16
+  d4:	00112623          	sw	ra,12(sp)
+  d8:	00812423          	sw	s0,8(sp)
+  dc:	01010413          	add	s0,sp,16
+  e0:	00000097          	auipc	ra,0x0
+  e4:	000080e7          	jalr	ra # e0 <read+0x10>
+  e8:	00000013          	nop
+  ec:	00c12083          	lw	ra,12(sp)
+  f0:	00812403          	lw	s0,8(sp)
+  f4:	01010113          	add	sp,sp,16
+  f8:	00008067          	ret
+
+000000fc <main>:
+  fc:	ff010113          	add	sp,sp,-16
+ 100:	00112623          	sw	ra,12(sp)
+ 104:	00812423          	sw	s0,8(sp)
+ 108:	01010413          	add	s0,sp,16
+
+0000010c <.L8>:
+ 10c:	00000097          	auipc	ra,0x0
+ 110:	000080e7          	jalr	ra # 10c <.L8>
+ 114:	ff9ff06f          	j	10c <.L8>
 
 ```
 
@@ -94,5 +184,20 @@ To find the number of unique instructions make sure to rename the filename as sa
 ```
 $ python3 instruction_counter.py // use this command after ensuring we are in the same directory as the script
 ```
-
+Number of unique instructions = 14  
+List of unique instructions:
+mv
+sll
+lw
+beqz
+auipc
+or
+jalr
+add
+nop
+li
+and
+sw
+j
+ret
 
