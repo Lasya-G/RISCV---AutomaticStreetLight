@@ -19,13 +19,15 @@ The components used in this project are: LDR sensor, PIR sensor, RISC-V Processo
 ### C Code
 
 ```
+//#include<stdio.h>
+
 void read();
-void controller
+void controller();
 
 int read_pir_sensor() {
 int pir_value;
-asm (
-            "ori %0, x30, 1\n\t"
+asm volatile(
+            "or %0, x30, 1\n\t"
             :"=r"(pir_value)
         );
     // Implement logic to read PIR sensor and return its value.
@@ -33,8 +35,8 @@ asm (
 
 int read_ldr_sensor() {
 int ldr_value;
-asm (
-            "ori %0, x30, 1\n\t"
+asm volatile(
+            "or %0, x30, 1\n\t"
             : "=r"(ldr_value)
         );
     // Implement logic to read LDR sensor and return its value.
@@ -43,27 +45,36 @@ asm (
 void controller() {
 int pir_value;
 int ldr_value;
-int* control_light;
-int* control;
+int control_light;
+int control;
     if (pir_value && ldr_value) { 
         // PIR sensor gives 1 when motion is detected, and LDR sensor outputs 1 when there is no light intensity
-        *control = 1;
-        *control_light = *control * 32;
-        asm(
+        control = 1;
+        control_light = control * 32;
+        asm volatile(
 		"and x30, x30, %0 \n\t"
-		:"=r"(control_light));
+		:
+		:"r"(control_light)
+		:"x30"
+		);
     }
     else { 
-        *control = 0;
-        *control_light = *control * 32;
-        asm(
+        control = 0;
+        control_light = control * 32;
+        asm volatile(
 		"and x30, x30, %0 \n\t"
-		:"=r"(control_light));
+		:
+		:"r"(control_light)
+		:"x30"
+		);
     }
 }
 
 void read() {
-     controller();
+ //   int pir_value = read_pir_sensor(); // Implement this function to read PIR sensor.
+   // int ldr_value = read_ldr_sensor(); // Implement this function to read LDR sensor.
+   // int control_ip;
+    controller();
 }
 
 int main() {
@@ -85,96 +96,83 @@ Use below code to convert c code to assembly language:
 ### Assembly code  
 
 ```
-automaticstreetlight.o:     file format elf32-littleriscv
+
+out:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
 
-00000000 <read_pir_sensor>:
-   0:	fe010113          	add	sp,sp,-32
-   4:	00812e23          	sw	s0,28(sp)
-   8:	02010413          	add	s0,sp,32
-   c:	001f6793          	or	a5,t5,1
-  10:	fef42623          	sw	a5,-20(s0)
-  14:	00000013          	nop
-  18:	00078513          	mv	a0,a5
-  1c:	01c12403          	lw	s0,28(sp)
-  20:	02010113          	add	sp,sp,32
-  24:	00008067          	ret
+00010074 <read_pir_sensor>:
+   10074:	fe010113          	add	sp,sp,-32
+   10078:	00812e23          	sw	s0,28(sp)
+   1007c:	02010413          	add	s0,sp,32
+   10080:	001f6793          	or	a5,t5,1
+   10084:	fef42623          	sw	a5,-20(s0)
+   10088:	00000013          	nop
+   1008c:	00078513          	mv	a0,a5
+   10090:	01c12403          	lw	s0,28(sp)
+   10094:	02010113          	add	sp,sp,32
+   10098:	00008067          	ret
 
-00000028 <read_ldr_sensor>:
-  28:	fe010113          	add	sp,sp,-32
-  2c:	00812e23          	sw	s0,28(sp)
-  30:	02010413          	add	s0,sp,32
-  34:	001f6793          	or	a5,t5,1
-  38:	fef42623          	sw	a5,-20(s0)
-  3c:	00000013          	nop
-  40:	00078513          	mv	a0,a5
-  44:	01c12403          	lw	s0,28(sp)
-  48:	02010113          	add	sp,sp,32
-  4c:	00008067          	ret
+0001009c <read_ldr_sensor>:
+   1009c:	fe010113          	add	sp,sp,-32
+   100a0:	00812e23          	sw	s0,28(sp)
+   100a4:	02010413          	add	s0,sp,32
+   100a8:	001f6793          	or	a5,t5,1
+   100ac:	fef42623          	sw	a5,-20(s0)
+   100b0:	00000013          	nop
+   100b4:	00078513          	mv	a0,a5
+   100b8:	01c12403          	lw	s0,28(sp)
+   100bc:	02010113          	add	sp,sp,32
+   100c0:	00008067          	ret
 
-00000050 <controller>:
-  50:	fe010113          	add	sp,sp,-32
-  54:	00812e23          	sw	s0,28(sp)
-  58:	02010413          	add	s0,sp,32
-  5c:	fec42783          	lw	a5,-20(s0)
-  60:	02078c63          	beqz	a5,98 <.L4>
-  64:	fe842783          	lw	a5,-24(s0)
-  68:	02078863          	beqz	a5,98 <.L4>
-  6c:	fe442783          	lw	a5,-28(s0)
-  70:	00100713          	li	a4,1
-  74:	00e7a023          	sw	a4,0(a5)
-  78:	fe442783          	lw	a5,-28(s0)
-  7c:	0007a783          	lw	a5,0(a5)
-  80:	00579713          	sll	a4,a5,0x5
-  84:	fe042783          	lw	a5,-32(s0)
-  88:	00e7a023          	sw	a4,0(a5)
-  8c:	00ff7f33          	and	t5,t5,a5
-  90:	fef42023          	sw	a5,-32(s0)
-  94:	02c0006f          	j	c0 <.L5>
+000100c4 <controller>:
+   100c4:	fe010113          	add	sp,sp,-32
+   100c8:	00812e23          	sw	s0,28(sp)
+   100cc:	02010413          	add	s0,sp,32
+   100d0:	fec42783          	lw	a5,-20(s0)
+   100d4:	02078663          	beqz	a5,10100 <controller+0x3c>
+   100d8:	fe842783          	lw	a5,-24(s0)
+   100dc:	02078263          	beqz	a5,10100 <controller+0x3c>
+   100e0:	00100793          	li	a5,1
+   100e4:	fef42223          	sw	a5,-28(s0)
+   100e8:	fe442783          	lw	a5,-28(s0)
+   100ec:	00579793          	sll	a5,a5,0x5
+   100f0:	fef42023          	sw	a5,-32(s0)
+   100f4:	fe042783          	lw	a5,-32(s0)
+   100f8:	00ff7f33          	and	t5,t5,a5
+   100fc:	0200006f          	j	1011c <controller+0x58>
+   10100:	fe042223          	sw	zero,-28(s0)
+   10104:	fe442783          	lw	a5,-28(s0)
+   10108:	00579793          	sll	a5,a5,0x5
+   1010c:	fef42023          	sw	a5,-32(s0)
+   10110:	fe042783          	lw	a5,-32(s0)
+   10114:	00ff7f33          	and	t5,t5,a5
+   10118:	00000013          	nop
+   1011c:	00000013          	nop
+   10120:	01c12403          	lw	s0,28(sp)
+   10124:	02010113          	add	sp,sp,32
+   10128:	00008067          	ret
 
-00000098 <.L4>:
-  98:	fe442783          	lw	a5,-28(s0)
-  9c:	0007a023          	sw	zero,0(a5)
-  a0:	fe442783          	lw	a5,-28(s0)
-  a4:	0007a783          	lw	a5,0(a5)
-  a8:	00579713          	sll	a4,a5,0x5
-  ac:	fe042783          	lw	a5,-32(s0)
-  b0:	00e7a023          	sw	a4,0(a5)
-  b4:	00ff7f33          	and	t5,t5,a5
-  b8:	fef42023          	sw	a5,-32(s0)
-  bc:	00000013          	nop
+0001012c <read>:
+   1012c:	ff010113          	add	sp,sp,-16
+   10130:	00112623          	sw	ra,12(sp)
+   10134:	00812423          	sw	s0,8(sp)
+   10138:	01010413          	add	s0,sp,16
+   1013c:	f89ff0ef          	jal	100c4 <controller>
+   10140:	00000013          	nop
+   10144:	00c12083          	lw	ra,12(sp)
+   10148:	00812403          	lw	s0,8(sp)
+   1014c:	01010113          	add	sp,sp,16
+   10150:	00008067          	ret
 
-000000c0 <.L5>:
-  c0:	00000013          	nop
-  c4:	01c12403          	lw	s0,28(sp)
-  c8:	02010113          	add	sp,sp,32
-  cc:	00008067          	ret
-
-000000d0 <read>:
-  d0:	ff010113          	add	sp,sp,-16
-  d4:	00112623          	sw	ra,12(sp)
-  d8:	00812423          	sw	s0,8(sp)
-  dc:	01010413          	add	s0,sp,16
-  e0:	00000097          	auipc	ra,0x0
-  e4:	000080e7          	jalr	ra # e0 <read+0x10>
-  e8:	00000013          	nop
-  ec:	00c12083          	lw	ra,12(sp)
-  f0:	00812403          	lw	s0,8(sp)
-  f4:	01010113          	add	sp,sp,16
-  f8:	00008067          	ret
-
-000000fc <main>:
-  fc:	ff010113          	add	sp,sp,-16
- 100:	00112623          	sw	ra,12(sp)
- 104:	00812423          	sw	s0,8(sp)
- 108:	01010413          	add	s0,sp,16
-
-0000010c <.L8>:
- 10c:	00000097          	auipc	ra,0x0
- 110:	000080e7          	jalr	ra # 10c <.L8>
- 114:	ff9ff06f          	j	10c <.L8>
+00010154 <main>:
+   10154:	ff010113          	add	sp,sp,-16
+   10158:	00112623          	sw	ra,12(sp)
+   1015c:	00812423          	sw	s0,8(sp)
+   10160:	01010413          	add	s0,sp,16
+   10164:	fc9ff0ef          	jal	1012c <read>
+   10168:	ffdff06f          	j	10164 <main+0x10>
 
 ```
 
