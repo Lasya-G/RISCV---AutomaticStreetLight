@@ -87,11 +87,6 @@ int main() {
 
 
 
-Use below code to convert c code to assembly language:
-```
-/home/lasya/riscv32-toolchain/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -ffreestanding -o automaticstreetlight.o automaticstreetlight.c
-/home/lasya/riscv32-toolchain/bin/riscv32-unknown-elf-objdump -d automaticstreetlight.o > automaticstreetlight.txt
-```
 
 ### Assembly code  
 
