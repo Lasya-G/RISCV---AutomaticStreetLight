@@ -99,77 +99,77 @@ out:     file format elf32-littleriscv
 
 Disassembly of section .text:
 
-00010074 <read_pir_sensor>:
-   10074:	fe010113          	add	sp,sp,-32
-   10078:	00812e23          	sw	s0,28(sp)
-   1007c:	02010413          	add	s0,sp,32
-   10080:	001f6793          	or	a5,t5,1
-   10084:	fef42623          	sw	a5,-20(s0)
-   10088:	00000013          	nop
-   1008c:	00078513          	mv	a0,a5
-   10090:	01c12403          	lw	s0,28(sp)
-   10094:	02010113          	add	sp,sp,32
-   10098:	00008067          	ret
+00010074 <main>:
+   10074:	ff010113          	add	sp,sp,-16
+   10078:	00112623          	sw	ra,12(sp)
+   1007c:	00812423          	sw	s0,8(sp)
+   10080:	01010413          	add	s0,sp,16
+   10084:	0c0000ef          	jal	10144 <read>
+   10088:	ffdff06f          	j	10084 <main+0x10>
 
-0001009c <read_ldr_sensor>:
-   1009c:	fe010113          	add	sp,sp,-32
-   100a0:	00812e23          	sw	s0,28(sp)
-   100a4:	02010413          	add	s0,sp,32
-   100a8:	001f6793          	or	a5,t5,1
-   100ac:	fef42623          	sw	a5,-20(s0)
-   100b0:	00000013          	nop
-   100b4:	00078513          	mv	a0,a5
-   100b8:	01c12403          	lw	s0,28(sp)
-   100bc:	02010113          	add	sp,sp,32
-   100c0:	00008067          	ret
+0001008c <read_pir_sensor>:
+   1008c:	fe010113          	add	sp,sp,-32
+   10090:	00812e23          	sw	s0,28(sp)
+   10094:	02010413          	add	s0,sp,32
+   10098:	001f6793          	or	a5,t5,1
+   1009c:	fef42623          	sw	a5,-20(s0)
+   100a0:	00000013          	nop
+   100a4:	00078513          	mv	a0,a5
+   100a8:	01c12403          	lw	s0,28(sp)
+   100ac:	02010113          	add	sp,sp,32
+   100b0:	00008067          	ret
 
-000100c4 <controller>:
-   100c4:	fe010113          	add	sp,sp,-32
-   100c8:	00812e23          	sw	s0,28(sp)
-   100cc:	02010413          	add	s0,sp,32
-   100d0:	fec42783          	lw	a5,-20(s0)
-   100d4:	02078663          	beqz	a5,10100 <controller+0x3c>
-   100d8:	fe842783          	lw	a5,-24(s0)
-   100dc:	02078263          	beqz	a5,10100 <controller+0x3c>
-   100e0:	00100793          	li	a5,1
-   100e4:	fef42223          	sw	a5,-28(s0)
-   100e8:	fe442783          	lw	a5,-28(s0)
-   100ec:	00579793          	sll	a5,a5,0x5
-   100f0:	fef42023          	sw	a5,-32(s0)
-   100f4:	fe042783          	lw	a5,-32(s0)
-   100f8:	00ff7f33          	and	t5,t5,a5
-   100fc:	0200006f          	j	1011c <controller+0x58>
-   10100:	fe042223          	sw	zero,-28(s0)
-   10104:	fe442783          	lw	a5,-28(s0)
-   10108:	00579793          	sll	a5,a5,0x5
-   1010c:	fef42023          	sw	a5,-32(s0)
-   10110:	fe042783          	lw	a5,-32(s0)
-   10114:	00ff7f33          	and	t5,t5,a5
-   10118:	00000013          	nop
-   1011c:	00000013          	nop
-   10120:	01c12403          	lw	s0,28(sp)
-   10124:	02010113          	add	sp,sp,32
-   10128:	00008067          	ret
+000100b4 <read_ldr_sensor>:
+   100b4:	fe010113          	add	sp,sp,-32
+   100b8:	00812e23          	sw	s0,28(sp)
+   100bc:	02010413          	add	s0,sp,32
+   100c0:	001f6793          	or	a5,t5,1
+   100c4:	fef42623          	sw	a5,-20(s0)
+   100c8:	00000013          	nop
+   100cc:	00078513          	mv	a0,a5
+   100d0:	01c12403          	lw	s0,28(sp)
+   100d4:	02010113          	add	sp,sp,32
+   100d8:	00008067          	ret
 
-0001012c <read>:
-   1012c:	ff010113          	add	sp,sp,-16
-   10130:	00112623          	sw	ra,12(sp)
-   10134:	00812423          	sw	s0,8(sp)
-   10138:	01010413          	add	s0,sp,16
-   1013c:	f89ff0ef          	jal	100c4 <controller>
-   10140:	00000013          	nop
-   10144:	00c12083          	lw	ra,12(sp)
-   10148:	00812403          	lw	s0,8(sp)
-   1014c:	01010113          	add	sp,sp,16
-   10150:	00008067          	ret
+000100dc <controller>:
+   100dc:	fe010113          	add	sp,sp,-32
+   100e0:	00812e23          	sw	s0,28(sp)
+   100e4:	02010413          	add	s0,sp,32
+   100e8:	fec42783          	lw	a5,-20(s0)
+   100ec:	02078663          	beqz	a5,10118 <controller+0x3c>
+   100f0:	fe842783          	lw	a5,-24(s0)
+   100f4:	02078263          	beqz	a5,10118 <controller+0x3c>
+   100f8:	00100793          	li	a5,1
+   100fc:	fef42223          	sw	a5,-28(s0)
+   10100:	fe442783          	lw	a5,-28(s0)
+   10104:	00579793          	sll	a5,a5,0x5
+   10108:	fef42023          	sw	a5,-32(s0)
+   1010c:	fe042783          	lw	a5,-32(s0)
+   10110:	00ff7f33          	and	t5,t5,a5
+   10114:	0200006f          	j	10134 <controller+0x58>
+   10118:	fe042223          	sw	zero,-28(s0)
+   1011c:	fe442783          	lw	a5,-28(s0)
+   10120:	00579793          	sll	a5,a5,0x5
+   10124:	fef42023          	sw	a5,-32(s0)
+   10128:	fe042783          	lw	a5,-32(s0)
+   1012c:	00ff7f33          	and	t5,t5,a5
+   10130:	00000013          	nop
+   10134:	00000013          	nop
+   10138:	01c12403          	lw	s0,28(sp)
+   1013c:	02010113          	add	sp,sp,32
+   10140:	00008067          	ret
 
-00010154 <main>:
-   10154:	ff010113          	add	sp,sp,-16
-   10158:	00112623          	sw	ra,12(sp)
-   1015c:	00812423          	sw	s0,8(sp)
-   10160:	01010413          	add	s0,sp,16
-   10164:	fc9ff0ef          	jal	1012c <read>
-   10168:	ffdff06f          	j	10164 <main+0x10>
+00010144 <read>:
+   10144:	ff010113          	add	sp,sp,-16
+   10148:	00112623          	sw	ra,12(sp)
+   1014c:	00812423          	sw	s0,8(sp)
+   10150:	01010413          	add	s0,sp,16
+   10154:	f89ff0ef          	jal	100dc <controller>
+   10158:	00000013          	nop
+   1015c:	00c12083          	lw	ra,12(sp)
+   10160:	00812403          	lw	s0,8(sp)
+   10164:	01010113          	add	sp,sp,16
+   10168:	00008067          	ret
 
 ```
 
