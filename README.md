@@ -24,6 +24,13 @@ The components used in this project are: LDR sensor, PIR sensor, RISC-V Processo
 void read();
 void controller();
 
+int main() {
+    while(1) {
+        read();
+    }
+    return 0;
+}
+
 int read_pir_sensor() {
 int pir_value;
 asm volatile(
@@ -77,12 +84,7 @@ void read() {
     controller();
 }
 
-int main() {
-    while(1) {
-        read();
-    }
-    return 0;
-}
+
 ```
 
 
