@@ -180,18 +180,21 @@ $ python3 instruction_counter.py // use this command after ensuring we are in th
 ```
 Number of different instructions: 13  
 List of unique instructions:  
-add  
-beqz  
-lw  
-and  
-or  
-ret  
-jal  
-li  
-sll  
 mv  
-j  
-nop  
+addi  
+li  
+slli  
 sw  
+j  
+beqz  
+nop  
+ori  
+jal  
+and  
+lw  
+ret  
+
+```
+
 
 
