@@ -8,7 +8,7 @@ int control;
 int control_reg;
 int mask = 0xFFFFFFF7;
 
-                asm volatile(
+asm volatile(
                 "andi x30, x30, 0x0000\n\t"
 	    	:
 	    	: 
