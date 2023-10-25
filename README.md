@@ -27,43 +27,61 @@ int pir_value;
 int ldr_value;
 int control;
 int control_reg;
+int mask = 0xFFFFFFF7;
+
+
+asm volatile(
+                "andi x30, x30, 0x0000\n\t"
+	    	:
+	    	: 
+		: "x30" 
+		);
 
 while(1)
-{
-asm volatile(
-            "or %0, x30, 1\n\t"
-            :"=r"(pir_value)
-        );
 
 asm volatile(
-            "or %0, x30, 1\n\t"
-            : "=r"(ldr_value)
-        );
+		"andi %0, x30, 0x01\n\t"
+		: "=r" (pir_value)
+		:
+		:);
+		
+		
+asm volatile(
+		"andi %0, x30, 0x02\n\t"
+		: "=r" (ldr_value)
+		:
+		:);         
 
 if (((pir_value)&&(ldr_value)) == 1)
 {
 control = 1;
-control_reg = control * 16;
+control_reg = control * 8;
 asm volatile(
-		"and x30, x30, %0 \n\t"
-		"and x30, x30, %1\n\t"		
+		"and x30, x30, %1 \n\t"
+		"or x30, x30, %0\n\t"		
 		:
-		:"r"(control), "r"(mask)
-		:
+		:"r"(control_reg), "r"(mask)
+		:"x30"
 		);
+		
+     	
+printf("control= %d\n", control);
+printf("Light is ON\n");
 }
 
 else
 {
 control = 0;
-control_reg = control *16;
+control_reg = control *8;
 asm volatile(
-		"and x30, x30, %0 \n\t"
-		"and x30, x30, %1\n\t"		
+		"and x30, x30, %1 \n\t"
+		"or x30, x30, %0\n\t"		
 		:
-		:"r"(control), "r"(mask)
+		:"r"(control_reg), "r"(mask)
 		:"x30"
-		);
+		)
+printf("control= %d\n", control);
+printf("Light is OFF\n");
 }
 }
 return 0;
@@ -164,81 +182,51 @@ As per my application, whenever both the sensors i.e; pir sensor as well as ldr 
 
 ```
 
-asm_out  :     file format elf32-littleriscv
+
+out:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
 
 00010054 <main>:
-   10054:   ff010113                addi  sp,sp,-16
-   10058:   00112623                sw    ra,12(sp)
-   1005c:   00812423                sw    s0,8(sp)
-   10060:   01010413                addi  s0,sp,16
-   10064:   0bc000ef                jal   ra,10120 <read>
-   10068:   ffdff06f                j     10064 <main+0x10>
-
-0001006c <read_pir_sensor>:
-   1006c:   fe010113                addi  sp,sp,-32
-   10070:   00812e23                sw    s0,28(sp)
-   10074:   02010413                addi  s0,sp,32
-   10078:   001f6793                ori   a5,t5,1
-   1007c:   fef42623                sw    a5,-20(s0)
-   10080:   00000013                nop
-   10084:   00078513                mv    a0,a5
-   10088:   01c12403                lw    s0,28(sp)
-   1008c:   02010113                addi  sp,sp,32
-   10090:   00008067                ret
-
-00010094 <read_ldr_sensor>:
-   10094:   fe010113                addi  sp,sp,-32
-   10098:   00812e23                sw    s0,28(sp)
-   1009c:   02010413                addi  s0,sp,32
-   100a0:   001f6793                ori   a5,t5,1
-   100a4:   fef42623                sw    a5,-20(s0)
-   100a8:   00000013                nop
-   100ac:   00078513                mv    a0,a5
-   100b0:   01c12403                lw    s0,28(sp)
-   100b4:   02010113                addi  sp,sp,32
-   100b8:   00008067                ret
-
-000100bc <controller>:
-   100bc:   fe010113                addi  sp,sp,-32
-   100c0:   00812e23                sw    s0,28(sp)
-   100c4:   02010413                addi  s0,sp,32
-   100c8:   fec42783                lw    a5,-20(s0)
-   100cc:   02078663                beqz  a5,100f8 <controller+0x3c>
-   100d0:   fe842783                lw    a5,-24(s0)
-   100d4:   02078263                beqz  a5,100f8 <controller+0x3c>
-   100d8:   00100793                li    a5,1
-   100dc:   fef42223                sw    a5,-28(s0)
-   100e0:   fe442783                lw    a5,-28(s0)
-   100e4:   00579793                slli  a5,a5,0x5
-   100e8:   fef42023                sw    a5,-32(s0)
-   100ec:   fe042783                lw    a5,-32(s0)
-   100f0:   00ff7f33                and   t5,t5,a5
-   100f4:   01c0006f                j     10110 <controller+0x54>
-   100f8:   fe042223                sw    zero,-28(s0)
-   100fc:   fe442783                lw    a5,-28(s0)
-   10100:   00579793                slli  a5,a5,0x5
-   10104:   fef42023                sw    a5,-32(s0)
-   10108:   fe042783                lw    a5,-32(s0)
-   1010c:   00ff7f33                and   t5,t5,a5
-   10110:   00000013                nop
-   10114:   01c12403                lw    s0,28(sp)
-   10118:   02010113                addi  sp,sp,32
-   1011c:   00008067                ret
-
-00010120 <read>:
-   10120:   ff010113                addi  sp,sp,-16
-   10124:   00112623                sw    ra,12(sp)
-   10128:   00812423                sw    s0,8(sp)
-   1012c:   01010413                addi  s0,sp,16
-   10130:   f8dff0ef                jal   ra,100bc <controller>
-   10134:   00000013                nop
-   10138:   00c12083                lw    ra,12(sp)
-   1013c:   00812403                lw    s0,8(sp)
-   10140:   01010113                addi  sp,sp,16
-   10144:   00008067                ret
+   10054:	fd010113          	addi	sp,sp,-48
+   10058:	02812623          	sw	s0,44(sp)
+   1005c:	03010413          	addi	s0,sp,48
+   10060:	ff700793          	li	a5,-9
+   10064:	fef42623          	sw	a5,-20(s0)
+   10068:	000f7f13          	andi	t5,t5,0
+   1006c:	001f7793          	andi	a5,t5,1
+   10070:	fef42423          	sw	a5,-24(s0)
+   10074:	002f7793          	andi	a5,t5,2
+   10078:	fef42223          	sw	a5,-28(s0)
+   1007c:	fe842783          	lw	a5,-24(s0)
+   10080:	00078a63          	beqz	a5,10094 <main+0x40>
+   10084:	fe442783          	lw	a5,-28(s0)
+   10088:	00078663          	beqz	a5,10094 <main+0x40>
+   1008c:	00100793          	li	a5,1
+   10090:	0080006f          	j	10098 <main+0x44>
+   10094:	00000793          	li	a5,0
+   10098:	00100713          	li	a4,1
+   1009c:	02e79663          	bne	a5,a4,100c8 <main+0x74>
+   100a0:	00100793          	li	a5,1
+   100a4:	fef42023          	sw	a5,-32(s0)
+   100a8:	fe042783          	lw	a5,-32(s0)
+   100ac:	00379793          	slli	a5,a5,0x3
+   100b0:	fcf42e23          	sw	a5,-36(s0)
+   100b4:	fdc42783          	lw	a5,-36(s0)
+   100b8:	fec42703          	lw	a4,-20(s0)
+   100bc:	00ef7f33          	and	t5,t5,a4
+   100c0:	00ff6f33          	or	t5,t5,a5
+   100c4:	fa9ff06f          	j	1006c <main+0x18>
+   100c8:	fe042023          	sw	zero,-32(s0)
+   100cc:	fe042783          	lw	a5,-32(s0)
+   100d0:	00379793          	slli	a5,a5,0x3
+   100d4:	fcf42e23          	sw	a5,-36(s0)
+   100d8:	fdc42783          	lw	a5,-36(s0)
+   100dc:	fec42703          	lw	a4,-20(s0)
+   100e0:	00ef7f33          	and	t5,t5,a4
+   100e4:	00ff6f33          	or	t5,t5,a5
+   100e8:	f85ff06f          	j	1006c <main+0x18>
 
 ```
 
@@ -248,21 +236,20 @@ To find the number of unique instructions make sure to rename the filename as sa
 ```
 $ python3 instruction_counter.py // use this command after ensuring we are in the same directory as the script
 ```
-Number of different instructions: 13  
+Number of different instructions: 11  
 List of unique instructions:  
-mv  
-addi  
-li  
-slli  
+lw  
 sw  
+addi  
+and  
+slli  
+or  
 j  
 beqz  
-nop  
-ori  
-jal  
-and  
-lw  
-ret  
+bne  
+li  
+andi  
+
 
 
 
