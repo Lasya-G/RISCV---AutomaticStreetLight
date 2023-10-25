@@ -1,4 +1,4 @@
-![image](https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/c89c8448-791a-43e6-ad40-866f51150c23)## AutomaticStreetLight
+## AutomaticStreetLight
 
 ### Project Overview
 The objective of this project is to design an automated Street Lightening system. Our focus is to implement this innovative solution using a RISC-V processor, a departure from traditional Arduino boards. The primary motivation for this endeavor is to enhance efficiency by  minimising the usage of the energy in the street light systems.   
@@ -70,6 +70,13 @@ return 0;
 }
 
 ```
+
+C code can be compiled using following commands:
+```
+gcc ASL.c
+./a.out
+```
+
 ### C Code simulation results  
 <img width="500" alt="Screenshot from 2023-10-25 15-01-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/db899425-7b9c-46b6-9774-e0021f3a451d">  
 <img width="500" alt="Screenshot from 2023-10-25 15-01-06" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d7e59340-8a85-4dbc-803d-ca2f01765d14">  
@@ -145,6 +152,8 @@ Use the following commands t perform spike simulation:
 
 
 ### Spike simulation Results
+
+As per my application, whenever both the sensors i.e; pir sensor as well as ldr sensor reads high value, the street light should be ON(control=1). In all the other cases the light should be OFF(control=0). We can observe the spike simulation results for all the four possible input combinations and their corresponding output functionality.
 <img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/3b6fbf33-3a43-498c-b3b2-e47c523bc7c2">   
 <img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2f1e95a5-5eb5-49ad-aa8b-cd3964da6c86">  
 <img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/bb5893d5-1ade-44e6-a9a6-f0d32c12e9e3">
