@@ -194,10 +194,6 @@ and
 lw  
 ret  
 
-The Verilog code and testbench have been uploaded.  
-
-### Functional Simulation
-<img alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/23654974-a0dd-40f2-91be-4bf5d2c24f85">  
 
 
 
