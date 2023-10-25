@@ -1,4 +1,4 @@
-## AutomaticStreetLight
+![image](https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/c89c8448-791a-43e6-ad40-866f51150c23)## AutomaticStreetLight
 
 ### Project Overview
 The objective of this project is to design an automated Street Lightening system. Our focus is to implement this innovative solution using a RISC-V processor, a departure from traditional Arduino boards. The primary motivation for this endeavor is to enhance efficiency by  minimising the usage of the energy in the street light systems.   
@@ -19,75 +19,136 @@ The components used in this project are: LDR sensor, PIR sensor, RISC-V Processo
 ### C Code
 
 ```
-//#include<stdio.h>
+//#include <stdio.h>
 
-void read();
-void controller();
-
-int main() {
-    while(1) {
-        read();
-    }
-    return 0;
-}
-
-int read_pir_sensor() {
+int main()
+{
 int pir_value;
+int ldr_value;
+int control;
+int control_reg;
+
+while(1)
+{
 asm volatile(
             "or %0, x30, 1\n\t"
             :"=r"(pir_value)
         );
-    // Implement logic to read PIR sensor and return its value.
-}
 
-int read_ldr_sensor() {
-int ldr_value;
 asm volatile(
             "or %0, x30, 1\n\t"
             : "=r"(ldr_value)
         );
-    // Implement logic to read LDR sensor and return its value.
+
+if (((pir_value)&&(ldr_value)) == 1)
+{
+control = 1;
+control_reg = control * 16;
+asm volatile(
+		"and x30, x30, %0 \n\t"
+		"and x30, x30, %1\n\t"		
+		:
+		:"r"(control), "r"(mask)
+		:
+		);
 }
 
-void controller() {
+else
+{
+control = 0;
+control_reg = control *16;
+asm volatile(
+		"and x30, x30, %0 \n\t"
+		"and x30, x30, %1\n\t"		
+		:
+		:"r"(control), "r"(mask)
+		:"x30"
+		);
+}
+}
+return 0;
+}
+
+```
+### C Code simulation results  
+<img width="500" alt="Screenshot from 2023-10-25 15-01-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/db899425-7b9c-46b6-9774-e0021f3a451d">  
+<img width="500" alt="Screenshot from 2023-10-25 15-01-06" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d7e59340-8a85-4dbc-803d-ca2f01765d14">  
+
+### Modified C code for Spike Simulation
+```
+#include <stdio.h>
+
+int main()
+{
 int pir_value;
 int ldr_value;
-int control_light;
 int control;
-    if (pir_value && ldr_value) { 
-        // PIR sensor gives 1 when motion is detected, and LDR sensor outputs 1 when there is no light intensity
-        control = 1;
-        control_light = control * 32;
-        asm volatile(
-		"and x30, x30, %0 \n\t"
+int control_reg;
+int mask = 0xFFFFFFF7;
+
+
+asm volatile(
+                "andi x30, x30, 0x0000\n\t"
+	    	:
+	    	: 
+		: "x30" 
+		);
+
+for( int i=0; i<8;i++)
+{
+pir_value=1;
+ldr_value=1;
+printf("pir_value=%d\n",pir_value);
+printf("ldr_value=%d\n",ldr_value);
+          
+
+if (((pir_value)&&(ldr_value)) == 1)
+{
+control = 1;
+control_reg = control * 8;
+asm volatile(
+		"and x30, x30, %1 \n\t"
+		"and x30, x30, %0\n\t"		
 		:
-		:"r"(control_light)
+		:"r"(control_reg), "r"(mask)
 		:"x30"
 		);
-    }
-    else { 
-        control = 0;
-        control_light = control * 32;
-        asm volatile(
-		"and x30, x30, %0 \n\t"
+		
+     	
+printf("control= %d\n", control);
+printf("Light is ON\n");
+}
+
+else
+{
+control = 0;
+control_reg = control *8;
+asm volatile(
+		"and x30, x30, %1 \n\t"
+		"and x30, x30, %0\n\t"		
 		:
-		:"r"(control_light)
+		:"r"(control_reg), "r"(mask)
 		:"x30"
-		);
-    }
+		)
+printf("control= %d\n", control);
+printf("Light is OFF\n");
 }
-
-void read() {
- //   int pir_value = read_pir_sensor(); // Implement this function to read PIR sensor.
-   // int ldr_value = read_ldr_sensor(); // Implement this function to read LDR sensor.
-   // int control_ip;
-    controller();
 }
-
-
+return 0;
+}
+```
+Use the following commands t perform spike simulation:
+```
+ riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o out automaticstreetlight_spiketest.c
+ spike pk out
 ```
 
 
+### Spike simulation Results
+<img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/3b6fbf33-3a43-498c-b3b2-e47c523bc7c2">   
+<img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2f1e95a5-5eb5-49ad-aa8b-cd3964da6c86">  
+<img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/bb5893d5-1ade-44e6-a9a6-f0d32c12e9e3">
+<img width="700" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/ec3d530f-7046-4fda-8bbc-24a6c3485c45">    
 
 
 ### Assembly code  
