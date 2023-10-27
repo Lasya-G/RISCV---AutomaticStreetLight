@@ -250,11 +250,27 @@ bne
 li  
 andi    
 
-### Functionality Simulation  
+### Functionality Simulation    
 
 The processor and testbench verilog codes used for the functionality simulation are uploaded.  
 
-<img width="700" alt="Screenshot from 2023-10-27 17-11-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/ec3c97b9-50b5-4b98-b5d8-32457b0c38ed">  
+We run functionality simulation by following commands:
+```
+iverilog processor.c testbench.v
+./a.out
+gtkwave waveform.vcd
+```
+
+The functinality of my code should be as follows:  
+Inputs  --  Output  
+   00   -- 0  
+01 -- 0  
+10 -- 0  
+11 -- 1  
+
+
+<img width="700" alt="Screenshot from 2023-10-27 17-11-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/ec3c97b9-50b5-4b98-b5d8-32457b0c38ed">   
+Here, I have given the inputs in testbench
 <img width="700" alt="Screenshot from 2023-10-27 17-10-03" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7d80fc9d-db1e-4500-a0d9-24ebcb2267ba">  
 <img width="700" alt="Screenshot from 2023-10-27 17-07-57" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d68be628-73e2-4901-ae7f-6308d022333c">  
 <img width="700" alt="Screenshot from 2023-10-27 17-06-05" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2fb727b9-4a4c-40bb-a596-1f2e7de8941b">  
