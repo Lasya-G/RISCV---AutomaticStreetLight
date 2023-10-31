@@ -256,23 +256,69 @@ The processor and testbench verilog codes used for the functionality simulation 
 
 We run functionality simulation by following commands:
 ```
-iverilog processor.c testbench.v
+iverilog processor.v testbench.v
 ./a.out
 gtkwave waveform.vcd
 ```
 
 The functinality of my code should be as follows:  
-Inputs  --  Output  
-   00   -- 0  
-01 -- 0  
-10 -- 0  
-11 -- 1  
+Inputs - Output  
+00 - 0  
+01 - 0  
+10 - 0  
+11 - 1  
 
+The "$signal" flag depicts the x30 register.
 
 <img width="700" alt="Screenshot from 2023-10-27 17-11-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/ec3c97b9-50b5-4b98-b5d8-32457b0c38ed">   
 <img width="700" alt="Screenshot from 2023-10-27 17-10-03" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7d80fc9d-db1e-4500-a0d9-24ebcb2267ba">  
 <img width="700" alt="Screenshot from 2023-10-27 17-07-57" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d68be628-73e2-4901-ae7f-6308d022333c">  
 <img width="700" alt="Screenshot from 2023-10-27 17-06-05" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2fb727b9-4a4c-40bb-a596-1f2e7de8941b">  
+
+In the images we can observe that the ID_instructions are incrementing in accordance with the assembly code.  
+
+- The input pins is of 2-bits where each bit represents each input sensor namely LDR sensor and PIR sensor.
+- The functionality for the code is given such that the output should be high only when both the inputs are high.
+- We can observe from the above images that the code functionality is correct as the output is becoming high only for a single input combination i.e; 11.
+
+
+### GLS  
+
+
+- We perform the Gate Level Simulation on the netlist file synthesised from yosys.
+- This file basically maps the standard cells of sky130 library to our design
+- Performing the GLS on our design, validates the logic of our design that is generated.
+- We need to make some minor changes inorder to run GLS which can be observed in the module instantiation of the sram blocks of the below images:
+<img width="500" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/168b8937-06d9-4041-989a-bb3950fe65f0">
+<img width="500" alt="Screenshot from 2023-10-31 21-41-44" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/c652ab3f-06f9-4b55-a439-89fa817c30f1">
+
+- Following are the steps to convert our processor code to netlist:
+```
+read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80_256.lib 
+read_verilog processor.v
+synth -top wrapper
+dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80_256.lib 
+abc -liberty sky130_fd_sc_hd__tt_025C_1v80_256.lib
+write_verilog syntheised__processor_test.v
+```
+
+<img width="1000" alt="Screenshot from 2023-10-31 21-29-52" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7bdff079-b3c3-4112-970d-5d50fd621485">  
+<img width="1000" alt="Screenshot from 2023-10-31 21-42-28" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/55f666f0-e264-426d-9b25-a66c22b8f4de">
+<img width="1000" alt="Screenshot from 2023-10-31 21-43-10" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2eb24564-3695-4668-bacf-2203feb12fea">
+<img width="1000" alt="Screenshot from 2023-10-31 21-43-59" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/70ad1b2c-f920-4c59-9312-a7ba98ca2daf">
+<img width="1000" alt="Screenshot from 2023-10-31 21-44-41" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/a21c47c3-38cd-4d4c-a06f-9db953e7561b">
+<img width="1000" alt="Screenshot from 2023-10-31 21-45-09" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/21d7cabc-01a4-450a-87d7-2bd4207ac2ab">  
+
+
+
+- To run the GLS simulation, follow the below commands:
+```
+iverilog -o a.out testbench.v synth_processor_test.v sky130_sram_1kbyte_1rw1r_32x256_8.v sky130_fd_sc_hd.v primitives.v 
+./a.out
+gtkwave waveform.vcd
+```
+<img width="1000" alt="Screenshot from 2023-10-31 22-29-43" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/6671ead3-2a92-4b2f-b79b-a6484c292e8c">
+<img width="1000" alt="Screenshot from 2023-10-31 22-11-54" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1e81d9e3-ef82-43f3-9aa0-c727bd82b34e">
 
 
 
