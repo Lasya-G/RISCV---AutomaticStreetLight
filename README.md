@@ -302,12 +302,12 @@ abc -liberty sky130_fd_sc_hd__tt_025C_1v80_256.lib
 write_verilog syntheised__processor_test.v
 ```
 
-<img width="1000" alt="Screenshot from 2023-10-31 21-29-52" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7bdff079-b3c3-4112-970d-5d50fd621485">  
-<img width="1000" alt="Screenshot from 2023-10-31 21-42-28" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/55f666f0-e264-426d-9b25-a66c22b8f4de">
-<img width="1000" alt="Screenshot from 2023-10-31 21-43-10" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2eb24564-3695-4668-bacf-2203feb12fea">
-<img width="1000" alt="Screenshot from 2023-10-31 21-43-59" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/70ad1b2c-f920-4c59-9312-a7ba98ca2daf">
-<img width="1000" alt="Screenshot from 2023-10-31 21-44-41" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/a21c47c3-38cd-4d4c-a06f-9db953e7561b">
-<img width="1000" alt="Screenshot from 2023-10-31 21-45-09" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/21d7cabc-01a4-450a-87d7-2bd4207ac2ab">  
+<img width="800" alt="Screenshot from 2023-10-31 21-29-52" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7bdff079-b3c3-4112-970d-5d50fd621485">  
+<img width="800" alt="Screenshot from 2023-10-31 21-42-28" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/55f666f0-e264-426d-9b25-a66c22b8f4de">
+<img width="800" alt="Screenshot from 2023-10-31 21-43-10" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2eb24564-3695-4668-bacf-2203feb12fea">
+<img width="800" alt="Screenshot from 2023-10-31 21-43-59" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/70ad1b2c-f920-4c59-9312-a7ba98ca2daf">
+<img width="800" alt="Screenshot from 2023-10-31 21-44-41" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/a21c47c3-38cd-4d4c-a06f-9db953e7561b">
+<img width="800" alt="Screenshot from 2023-10-31 21-45-09" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/21d7cabc-01a4-450a-87d7-2bd4207ac2ab">  
 
 
 
@@ -317,8 +317,8 @@ iverilog -o a.out testbench.v synth_processor_test.v sky130_sram_1kbyte_1rw1r_32
 ./a.out
 gtkwave waveform.vcd
 ```
-<img width="1000" alt="Screenshot from 2023-10-31 22-29-43" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/6671ead3-2a92-4b2f-b79b-a6484c292e8c">
-<img width="1000" alt="Screenshot from 2023-10-31 22-11-54" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1e81d9e3-ef82-43f3-9aa0-c727bd82b34e">
+<img width="800" alt="Screenshot from 2023-10-31 22-29-43" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/6671ead3-2a92-4b2f-b79b-a6484c292e8c">
+<img width="800" alt="Screenshot from 2023-10-31 22-11-54" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1e81d9e3-ef82-43f3-9aa0-c727bd82b34e">
 
 
 
