@@ -321,7 +321,7 @@ gtkwave waveform.vcd
 <img width="800" alt="Screenshot from 2023-10-31 22-11-54" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1e81d9e3-ef82-43f3-9aa0-c727bd82b34e">
 
 
-
+We can see that the GLS is generating the same output as that of the Functionality simulation.
 
 
 
