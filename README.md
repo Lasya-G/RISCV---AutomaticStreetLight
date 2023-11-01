@@ -269,11 +269,14 @@ Inputs - Output
 11 - 1  
 
 The "$signal" flag depicts the x30 register.
+ 
+<img width="800" alt="Screenshot from 2023-10-27 17-06-05" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2fb727b9-4a4c-40bb-a596-1f2e7de8941b">   
+<img width="800" alt="Screenshot from 2023-10-27 17-07-57" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d68be628-73e2-4901-ae7f-6308d022333c">   
+<img width="800" alt="Screenshot from 2023-10-27 17-11-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/ec3c97b9-50b5-4b98-b5d8-32457b0c38ed">    
+<img width="800" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/747d007a-7227-4ab4-8df3-0569232fd5e2">    
 
-<img width="700" alt="Screenshot from 2023-10-27 17-11-19" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/ec3c97b9-50b5-4b98-b5d8-32457b0c38ed">   
-<img width="700" alt="Screenshot from 2023-10-27 17-10-03" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7d80fc9d-db1e-4500-a0d9-24ebcb2267ba">  
-<img width="700" alt="Screenshot from 2023-10-27 17-07-57" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d68be628-73e2-4901-ae7f-6308d022333c">  
-<img width="700" alt="Screenshot from 2023-10-27 17-06-05" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/2fb727b9-4a4c-40bb-a596-1f2e7de8941b">  
+Here, in this image we can observe the input being 11 and the output is becoming 1 during the instruction ```00FF6F33``` which jumps to another instruction and changes the output to 1.
+
 
 In the images we can observe that the ID_instructions are incrementing in accordance with the assembly code.  
 
