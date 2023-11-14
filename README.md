@@ -406,11 +406,11 @@ run_floorplan
 To view the floorplan: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:  
 
 ```
-cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_14.10.03/results/floorplan
+cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_16.42.43/results/floorplan
 magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def &
 ```
 
-<img width="750" alt="ASL_magic_floorplan" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7727ae4c-379c-4706-8ce4-c10d75735f73">  
+<img width="750" alt="ASL_floorplan_magic" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/c2d6376f-bd5d-4522-a9df-1e3ee4c3eca2">    
 
 **Areas Post FLOORPLAN**  
 <img width="750" alt="ASL_floorplan_diearea" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/732e08f1-9b2c-437e-86af-3109430dd171">  
@@ -431,14 +431,15 @@ run_placement
 
 <img width="750" alt="ASL_terminal_placement" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1008116b-5c74-463a-b9e0-d6fdbf000301">  
 
-To view the floorplan: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:  
+To view the placement: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:  
 
 ```
-cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_14.10.03/results/placement
+cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_16.42.43/results/placement
 magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def &
 ```
 
-<img width="750" alt="ASL_magic_placement" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/a3247bec-0db6-4f96-820f-f8b24eeaf2a9">  
+<img width="750" alt="ASL_placement_magic" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/89be7480-c25c-4838-80aa-28c00cdda378">  
+
 
 ### CLOCK TREE SYNTHESIS  
 
@@ -479,6 +480,17 @@ run_routing
 
 <img width="750" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/11ad51ed-be71-4d93-be9a-456e57055f05">  
 
+To view the routing, Magic is invoked after moving to the results/floorplan directory,then use the floowing command:  
+
+```
+cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_16.42.43/results/routing
+magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def &
+```
+
+<img width="750" alt="ASL_routing_magic" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/3055a07f-786a-4ba6-9f45-f8b8a619f03d">  
+<img width="750" alt="ASL_routing_magic1" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/c399f2cf-a870-4df4-ac82-9e83fa7b2ba6">  
+<img width="750" alt="ASL_routing_area" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/30f45e29-f8f5-48b4-802e-19a76240bdcb">  
+
 
 
 **POST_ROUTING REPORTS**:
@@ -488,8 +500,23 @@ run_routing
 
 
 
-**No Violation Report**:
+**No Violation Report**:  
+
 <img width="750" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/0b71fbd5-7674-4291-bf38-3f40f25a3544">  
+
+
+### Performance Calculation:
+
+Given a Clock period of 90ns in Json file , setup slack we got after routing is 25.01ns
+                              1
+Max Performance =  ------------------------
+                     clock period - slack(setup)
+
+Max Performance = 0.0154 Ghz  
+
+### EXTRAS  
+
+
 
 
 
