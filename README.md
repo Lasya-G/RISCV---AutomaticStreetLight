@@ -517,8 +517,35 @@ Max Performance = 0.0154 Ghz
 ### EXTRAS  
 
 
+### OpenLane Interactive Flow:  
 
+```  
+cd ASIC/OpenLane/
+make mount
 
+./flow.tcl -interactive
+package require openlane 0.9
+prep -design RISCV_ASL
+run_synthesis
+run_floorplan
+run_placement
+run_cts
+gen_pdn
+run_routing
+run_magic
+run_magic_spice_export
+run_magic_drc
+run_antenna_check
+
+```
+
+### OpenLane Non-Interactive Flow:  
+
+```
+cd ASIC/OpenLane 
+make mount
+./flow.tcl -design RISCV_ASL
+```
 
 
 
