@@ -329,7 +329,7 @@ We can see that the GLS is generating the same output as that of the Functionali
 
 ### PHYSICAL DESIGN  
 
-#### SoC Design and openLAN  
+### SoC Design and openLAN  
 
 The design of ASIC requires 3 main elements:  
 <img width="400" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/a1d87924-47f5-4b99-b224-63a885a06366">  
@@ -374,7 +374,7 @@ The simplified ASIC design flow is shown below:
 **OpenLane ASIC Flow**:  
 <img width="700" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/f02bc1db-eee4-4c52-aa64-98c0a7577b01">     
 
-#### INVOKING YOSYS and SYNTHESIS  
+### INVOKING YOSYS and SYNTHESIS  
 
 Go to ```ASIC/OpenLane``` and Use the below commands to invoke yosys:
 
@@ -393,7 +393,7 @@ run_synthesis
 <img width="750" alt="ASL_terminal_synthesis" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/707edb24-7c35-4966-9612-2c6c25d4d483">  
 <img width="750" alt="ASL_synthesis_area" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/67232a74-fac1-4ea6-b5cb-045ab5715d5a">  
 
-#### FLOORPLAN  
+### FLOORPLAN  
 
 Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.  
 
@@ -416,7 +416,7 @@ magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/me
 <img width="750" alt="ASL_floorplan_diearea" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/732e08f1-9b2c-437e-86af-3109430dd171">  
 <img width="750" alt="ASL_floorplan_corearea" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/9f1697fc-b0cd-429d-a3f1-d3816b0aae24">  
 
-#### PLACEMENT  
+### PLACEMENT  
 
 Place the standard cells on the floorplane rows, aligned with sites defined in the technology lef file. Placement is done in two steps: Global and Detailed. In Global placement tries to find optimal position for all cells but they may be overlapping and not aligned to rows, detailed placement takes the global placement and legalizes all of the placements trying to adhere to what the global placement wants. The next step in the OpenLANE ASIC flow is placement. The synthesized netlist is to be placed on the floorplan. Placement is perfomed in 2 stages:
 
@@ -440,7 +440,7 @@ magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/me
 
 <img width="750" alt="ASL_magic_placement" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/a3247bec-0db6-4f96-820f-f8b24eeaf2a9">  
 
-#### CLOCK TREE SYNTHESIS  
+### CLOCK TREE SYNTHESIS  
 
 Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
 
@@ -459,7 +459,7 @@ run_cts
 <img width="750" alt="ASL_cts_skewandpower" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d71202a4-3a06-43d5-8b92-393f95255a38">  
 
 
-#### ROUTING  
+### ROUTING  
 Implements the interconnect system between standard cells using the remaining available metal layers after CTS and PDN generation. The routing is performed on routing grids to ensure minimal DRC errors.  
 OpenLANE uses the TritonRoute tool for routing. There are 2 stages of routing:
 - Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool).
