@@ -455,8 +455,8 @@ run_cts
 
 **Slack, Skew, Area and Power Reports**  
 
-<img width="750" alt="ASL_cts_areaandslack" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d24fc9b2-22a3-468b-b48f-d8e7ce0473d3">  
-<img width="750" alt="ASL_cts_skewandpower" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d71202a4-3a06-43d5-8b92-393f95255a38">  
+<img width="750" alt="ASL_cts_reports" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/998416cc-79a6-4999-b937-76c84a52c0a9">  
+<img width="750" alt="ASL_cts_reports1" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/13e9197f-7fd0-4ff3-96e3-191611372ebf">  
 
 
 ### ROUTING  
