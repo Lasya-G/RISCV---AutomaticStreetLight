@@ -477,6 +477,8 @@ Run the following command to run the routing:
 run_routing
 ```
 
+<img width="750" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/257e8ca4-892b-4619-a9ce-3538b1558e3b">  
+
 
 
 
