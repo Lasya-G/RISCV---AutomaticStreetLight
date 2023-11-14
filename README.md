@@ -519,6 +519,10 @@ Max Performance = 0.0154 Ghz
 
 ### EXTRAS  
 
+<img width="800" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1eb557a5-91d5-4a38-ad27-bec7358cc79c">  
+
+
+
 
 ### OpenLane Interactive Flow:  
 
