@@ -481,6 +481,13 @@ run_routing
 
 
 
+**POST_ROUTING REPORTS**:
+
+<img width="750" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/aaee6a43-6cda-4311-bcc2-338a89c741ab">  
+<img width="750" alt="image" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/99e13fa9-37a2-4659-99a8-ea5224bf1ed9">  
+
+
+
 
 
 
