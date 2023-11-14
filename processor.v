@@ -6129,7 +6129,7 @@ module top(csb_alu, csb_mem, web, wmask, alu_result, gpio_pins, output_pins, ins
 endmodule
 
 
-
+/*
 
     module sky130_sram_2kbyte_1rw1r_32x256_8_inst(
     `ifdef USE_POWER_PINS
@@ -6207,7 +6207,7 @@ endmodule
 
     reg [DATA_WIDTH-1:0]    mem [0:RAM_DEPTH-1];
 
-    initial
+   initial
     begin
 
     	mem[0] = 32'h00000000;
@@ -6254,6 +6254,7 @@ endmodule
 	mem[41] = 32'hffffffff;
 
     end
+
 
     // Memory Write Block Port 0
     // Write Operation : When web0 = 0, csb0 = 0
@@ -6399,7 +6400,7 @@ endmodule
     end
 
     endmodule
-
+*/
     module uart_rx(
     input  wire       clk          , // Top level system clock input.
     input  wire       resetn       , // Asynchronous active low reset.
@@ -6685,7 +6686,7 @@ endmodule
 
         if(rst==1)
         begin 
-            writing_inst_done=1;
+            writing_inst_done=0;
             write_inst_count=0;
             instruction=0;
             inst_byte_count=0;
@@ -6773,7 +6774,7 @@ endmodule
 
 
     // (* blackbox *)
-    sky130_sram_2kbyte_1rw1r_32x256_8_inst inst_mem(
+    sky130_sram_1kbyte_1rw1r_32x256_8 inst_mem(
     .clk0(clk),// clock
     .csb0(temp_csb), // active low chip select
     .web0(temp_web), // active low write control
@@ -6791,7 +6792,7 @@ endmodule
 
     //data mem
     // (* blackbox *)
-    sky130_sram_2kbyte_1rw1r_32x256_8_data data_mem(
+    sky130_sram_1kbyte_1rw1r_32x256_8 data_mem(
     .clk0(clk), // clock
     .csb0(csb_alu), // active low chip select
     .web0(web), // active low write control
