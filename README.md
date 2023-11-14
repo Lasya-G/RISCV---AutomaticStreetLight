@@ -324,8 +324,178 @@ gtkwave waveform.vcd
 <img width="800" alt="Screenshot from 2023-10-31 22-11-54" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1e81d9e3-ef82-43f3-9aa0-c727bd82b34e">
 
 
-We can see that the GLS is generating the same output as that of the Functionality simulation.
+We can see that the GLS is generating the same output as that of the Functionality simulation.  
 
+
+### PHYSICAL DESIGN  
+
+##### SoC Design and openLAN  
+
+The design of ASIC requires 3 main elements:  
+<img width="400" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/a1d87924-47f5-4b99-b224-63a885a06366">  
+
+The simplified ASIC design flow is shown below:  
+<img width="450" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/1ff9041d-9dfe-4a04-b814-d8c18dd0c583">  
+
+- **Synthesis**: This converts RTL into a circuit using the components from the standard cell library. The resultant circuit is described in HDL and is usually referred as gate-level netlist, which is a functional equivalent of RTL. Each cell has a different view depending on the tool used.
+<img width="450" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/76df67ee-686b-438c-bd43-10d7ed8d6cd7">
+
+- **Floor and Power planning**: The objective is to plan the silicon area and robust power distribution network to power the circuits.
+  - Chip-Floor Planning: Partition the chip die between different system building blocks and place the I/O pads.
+  - Macro-Floor Planning: We define the macro dimensions and its pin locations. We also define row definitions which is used in placement process.
+  - Power PLanning : It is the process of managing and distributing electrical power within an IC to ensure proper functionality, performance, and reliability while minimizing power consumption.
+<img width="400" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/1ce74b69-b92e-4275-8f02-57eb9ccae251">
+<img width="200" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/1438aeca-4f1f-4396-86f0-6b965a85fcbc">
+<img width="200" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/770361da-3faf-4993-8bd4-ff692b42e75b">
+
+- **Placement**: Place the cells on the floorplan rows aligned with the sites. It is usually done in 2 steps:
+  - Global placement : Finds the optimal positions for all cells, which can involve cell overlapping
+  - Detailed placement : Positions are minimally altered to their fixed positions.
+<img width="400" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/e3977563-aae6-4fe4-a0a8-45bec22d3799">
+
+
+- **Clock Tree Synthesis**: It is used to create a clock distribution network inorder to deliver clock to all sequential elements with minimum skew and minimum latency, and in a good shape. It usually looks like a tree.
+<img width="400" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/56fedd15-636f-4ceb-8cca-9699a8980766">
+
+- **Routing**: Implement the interconnect using the available metal layers. These metal layers tracks form a routing grid. As routing grid is huge, divide and conquer approach is used for routing. First, Global routing generates the routing guides and then the Detailed routing uses the guide to implement actual wiring.
+
+- **Sign Off**: It undergoes **Physical Verification** which includes Design Rules Checking and Layout vs Schematic, and **Timing Verification** which includes Static Timing Analysis.
+
+<img width="500" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/7b760c4f-2dd0-40c1-9533-dbb1b13737f8">  
+
+**OpenLane**
+
+- It started as an Open-source flow for a true Open source tape-out experiment.
+- Strive is a family of open everything SoCs. <img width="400" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/6bbdf602-9033-4594-ab31-5eafb0b70018">
+- The main goal of OpenLane is to produce a clean GDSII with no human intervention.
+- It is tuned for Skywater 130nm Open PDK, also supports XFAB180 and GF130G.
+- It has 2 modes of operation: Autonomous and Interactive.
+
+**OpenLane ASIC Flow**:  
+<img width="700" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/f02bc1db-eee4-4c52-aa64-98c0a7577b01">     
+
+##### INVOKING YOSYS and SYNTHESIS  
+
+Go to ```ASIC/OpenLane``` and Use the below commands to invoke yosys:
+
+```
+make mount
+%./flow.tcl -interactive
+% package require openlane 0.9
+% prep -design RISCV-ASL
+```
+
+Run the following command to synthesize the code:  
+```
+run_synthesis
+```
+
+<img width="750" alt="ASL_terminal_synthesis" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/707edb24-7c35-4966-9612-2c6c25d4d483">  
+<img width="750" alt="ASL_synthesis_area" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/67232a74-fac1-4ea6-b5cb-045ab5715d5a">  
+
+##### FLOORPLAN  
+
+Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.  
+
+Use the following command to run flopprplan:  
+```
+run_floorplan
+```
+<img width="750" alt="ASL_terminal_floorplan" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d8c9ac67-0202-4abe-a70b-cc038f03a52f">  
+
+To view the floorplan: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:  
+
+```
+cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_14.10.03/results/floorplan
+magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def &
+```
+
+<img width="750" alt="ASL_magic_floorplan" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/7727ae4c-379c-4706-8ce4-c10d75735f73">  
+
+**Areas Post FLOORPLAN**  
+<img width="750" alt="ASL_floorplan_diearea" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/732e08f1-9b2c-437e-86af-3109430dd171">  
+<img width="750" alt="ASL_floorplan_corearea" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/9f1697fc-b0cd-429d-a3f1-d3816b0aae24">  
+
+##### PLACEMENT  
+
+Place the standard cells on the floorplane rows, aligned with sites defined in the technology lef file. Placement is done in two steps: Global and Detailed. In Global placement tries to find optimal position for all cells but they may be overlapping and not aligned to rows, detailed placement takes the global placement and legalizes all of the placements trying to adhere to what the global placement wants. The next step in the OpenLANE ASIC flow is placement. The synthesized netlist is to be placed on the floorplan. Placement is perfomed in 2 stages:
+
+    Global Placement: It finds optimal position for all cells which may not be legal and cells may overlap. Optimization is done through reduction of half parameter wire length.
+
+    Detailed Placement: It alters the position of cells post global placement so as to legalise them.
+
+run the following command to run the placement  
+```
+run_placement
+```
+
+<img width="750" alt="ASL_terminal_placement" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/1008116b-5c74-463a-b9e0-d6fdbf000301">  
+
+To view the floorplan: Magic is invoked after moving to the results/floorplan directory,then use the floowing command:  
+
+```
+cd ASIC/OPenLane/designs/RISCV_ASL/runs/RUN_2023.11.14_14.10.03/results/placement
+magic -T home/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def &
+```
+
+<img width="750" alt="ASL_magic_placement" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/a3247bec-0db6-4f96-820f-f8b24eeaf2a9">  
+
+##### CLOCK TREE SYNTHESIS  
+
+Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
+
+The purpose of building a clock tree is enable the clock input to reach every element and to ensure a zero clock skew. H-tree is a common methodology followed in CTS.
+
+Run the following command to perform CTS  
+```
+run_cts
+```
+
+<img width="750" alt="ASL_terminal_cts" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/41f9ce24-ed22-41cb-98eb-d7d0bb0f8bba">  
+
+**Slack, Skew, Area and Power Reports**  
+
+<img width="750" alt="ASL_cts_areaandslack" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d24fc9b2-22a3-468b-b48f-d8e7ce0473d3">  
+<img width="750" alt="ASL_cts_skewandpower" src="https://github.com/Lasya-G/RISCV---AutomaticStreetLight/assets/140998582/d71202a4-3a06-43d5-8b92-393f95255a38">  
+
+
+##### ROUTING  
+Implements the interconnect system between standard cells using the remaining available metal layers after CTS and PDN generation. The routing is performed on routing grids to ensure minimal DRC errors.  
+OpenLANE uses the TritonRoute tool for routing. There are 2 stages of routing:
+- Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool).
+- Detailed routing: Finer grids and routing guides used to implement physical wiring (TritonRoute tool).
+
+Features of TritonRoute:
+
+- Honouring pre-processed route guides
+- Assumes that each net satisfies inter guide connectivity
+- Uses MILP based panel routing scheme
+- Intra-layer parallel and inter-layer sequential routing framework
+
+Run the following command to run the routing:  
+```
+run_routing
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
