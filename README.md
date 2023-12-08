@@ -1,8 +1,8 @@
 ## AutomaticStreetLight
 
 ### Table of Contents
-- [Project Overview](#project_overview)
-- [Physical Design](#physical_design)
+- [Project Overview](#project-overview)
+- [Physical Design](#physical-design)
 - [References](#references)
 
 ### Project Overview
