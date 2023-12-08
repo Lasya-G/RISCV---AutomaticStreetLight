@@ -379,7 +379,7 @@ The simplified ASIC design flow is shown below:
 **OpenLane ASIC Flow**:  
 <img width="700" alt="image" src="https://github.com/Lasya-G/Advanced-Physical-Design-using-open-lane/assets/140998582/f02bc1db-eee4-4c52-aa64-98c0a7577b01">     
 
-### INVOKING YOSYS and SYNTHESIS  
+### INVOKING OPENLANE and SYNTHESIS  
 
 Go to ```ASIC/OpenLane``` and Use the below commands to invoke yosys:
 
