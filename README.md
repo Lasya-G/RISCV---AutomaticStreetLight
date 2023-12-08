@@ -1,8 +1,8 @@
 ## AutomaticStreetLight
 
 ### Table of Contents
-- [Introduction to project](#project_overview)
-- [Physical Design using OpenLane](#physical_design)
+- [Project Overview](#project_overview)
+- [Physical Design](#physical_design)
 - [References](#references)
 
 ### Project Overview
