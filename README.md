@@ -2,7 +2,7 @@
 
 ### Table of Contents
 - [Project Overview](#project-overview)
-- [Physical Design](https://github.com/Lasya-G/RISCV---AutomaticStreetLight/edit/main/README.md#table-of-contents)
+- [Physical Design](https://github.com/Lasya-G/RISCV---AutomaticStreetLight#physical-design)
 - [References](#references)
 
 ### Project Overview
