@@ -164,8 +164,8 @@ return 0;
 ```
 Use the following commands t perform spike simulation:
 ```
- riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o out automaticstreetlight_spiketest.c
- spike pk out
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o out automaticstreetlight_spiketest.c
+riscv64-unknown-elf-objdump -d -r out > assembly.txt
 ```
 
 
